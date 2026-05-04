@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://bf86nlsget7pr"]
+
+[ext_resource type="Texture2D" uid="uid://782blvr64m03" path="res://assets/Main Character/Rework Black-Sheet-Animation.png" id="1_1obkj"]
+[ext_resource type="Script" uid="uid://ca17l7j2rttei" path="res://scenes/entity/player.gd" id="1_gdab3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m335d"]
+size = Vector2(23, 55)
+
+[sub_resource type="Animation" id="Animation_tgyl1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -29)]
+}
+
+[sub_resource type="Animation" id="Animation_gdab3"]
+resource_name = "Idle"
+length = 0.7
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45000002, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -28)]
+}
+
+[sub_resource type="Animation" id="Animation_4y4uh"]
+resource_name = "jump"
+
+[sub_resource type="Animation" id="Animation_poj5f"]
+resource_name = "Run"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9, 10, 11, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -29)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4y4uh"]
+_data = {
+&"RESET": SubResource("Animation_tgyl1"),
+&"idle": SubResource("Animation_gdab3"),
+&"jump": SubResource("Animation_4y4uh"),
+&"run": SubResource("Animation_poj5f")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gdab3"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tgyl1"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_poj5f"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4y4uh"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t8xyy"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_j8jve"]
+states/idle/node = SubResource("AnimationNodeAnimation_gdab3")
+states/idle/position = Vector2(359, 67)
+states/run/node = SubResource("AnimationNodeAnimation_tgyl1")
+states/run/position = Vector2(518, 83)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_poj5f"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_4y4uh"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_t8xyy")]
+graph_offset = Vector2(-147, -37)
+
+[node name="Player" type="CharacterBody2D" unique_id=399099386]
+script = ExtResource("1_gdab3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=33641400]
+position = Vector2(5, -76)
+texture = ExtResource("1_1obkj")
+hframes = 10
+vframes = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1845590188]
+position = Vector2(7, -29)
+shape = SubResource("RectangleShape2D_m335d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1751409213]
+libraries/ = SubResource("AnimationLibrary_4y4uh")
+autoplay = &"idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1174779635]
+tree_root = SubResource("AnimationNodeStateMachine_j8jve")
+anim_player = NodePath("../AnimationPlayer")

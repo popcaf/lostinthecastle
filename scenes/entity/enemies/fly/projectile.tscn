@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8flyproj0001"]
+
+[ext_resource type="Script" path="res://scenes/entity/enemies/fly/projectile.gd" id="1_proj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_proj"]
+size = Vector2(18, 18)
+
+[node name="Projectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("1_proj")
+
+[node name="Body" type="Polygon2D" parent="."]
+color = Color(0.95, 0.25, 0.18, 1)
+polygon = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9)
+
+[node name="Outline" type="Line2D" parent="."]
+points = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9, -9, -9)
+width = 1.5
+default_color = Color(0.15, 0.05, 0.05, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_proj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

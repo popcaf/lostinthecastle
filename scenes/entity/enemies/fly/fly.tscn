@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://b8flyenemy001"]
+
+[ext_resource type="Script" uid="uid://c6pdfcj7ovqrr" path="res://scenes/entity/enemies/fly/fly.gd" id="1_fly"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flybody"]
+size = Vector2(34, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flyhurt"]
+size = Vector2(36, 28)
+
+[node name="Fly" type="CharacterBody2D" unique_id=1430804268 groups=["enemies"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_fly")
+
+[node name="BodyShape" type="CollisionShape2D" parent="." unique_id=1430804269]
+shape = SubResource("RectangleShape2D_flybody")
+
+[node name="Body" type="Polygon2D" parent="." unique_id=2102879535]
+color = Color(0.18, 0.18, 0.22, 1)
+polygon = PackedVector2Array(-14, -10, 14, -10, 18, 0, 14, 10, -14, 10, -18, 0)
+
+[node name="Eye" type="Polygon2D" parent="Body" unique_id=978492406]
+color = Color(0.95, 0.85, 0.2, 1)
+polygon = PackedVector2Array(6, -4, 12, -4, 12, 2, 6, 2)
+
+[node name="WingL" type="Polygon2D" parent="Body" unique_id=562642162]
+color = Color(0.85, 0.9, 1, 0.55)
+polygon = PackedVector2Array(-6, -10, -2, -22, 8, -16, 6, -10)
+
+[node name="WingR" type="Polygon2D" parent="Body" unique_id=1705514976]
+color = Color(0.85, 0.9, 1, 0.55)
+polygon = PackedVector2Array(-8, -10, -16, -22, -22, -14, -16, -10)
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1278920743]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=870683405]
+shape = SubResource("RectangleShape2D_flyhurt")
+debug_color = Color(0.9942227, 0, 0.2327191, 0.41960785)
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=1609780857]
+one_shot = true
+
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
