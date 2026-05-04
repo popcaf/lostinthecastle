@@ -2,7 +2,7 @@ extends Area2D
 
 
 @export var damage: int = 15
-@export var atk_gravity: float = 900.0
+@export var atk_gravity: float = 2000.0
 @export var travel_time: float = 0.9
 @export var lifetime: float = 4.0
 
