@@ -22,7 +22,6 @@ const DASH_SPEED = 1000
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var timer: Timer = %Timer
 @onready var dash_duration: Timer = %DashDuration
-@onready var camera: Camera2D = $Camera2D
 #@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 var lockcamara: bool = false
@@ -33,6 +32,7 @@ var can_dash = true
 var is_dashing = false
 var is_attacking = false
 var is_hurt: bool = false
+var is_input_locked: bool = false
 
 const KNOCKBACK_FORCE_X: float = 350.0
 const HURT_FLASH_DURATION: float = 0.4
@@ -51,7 +51,6 @@ var state: State = State.IDLE
 func _ready() -> void:
 	animation_tree.set_active(true)
 	can_dash = true
-	#camera_2d.position = Vector2(200,-200)
 	if hud_scene != null and not _hud_already_added():
 		var hud: CanvasLayer = hud_scene.instantiate()
 		get_tree().root.add_child.call_deferred(hud)
@@ -67,17 +66,24 @@ func _hud_already_added() -> bool:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
+
+	if is_input_locked:
+		velocity.x = move_toward(velocity.x, 0, speed)
+		state = State.IDLE
+		update_animation()
+		move_and_slide()
+		return
+
 	if is_on_floor():
 		jumpsecond = false
 		#is_dash = false
 		state = State.IDLE
 		update_animation()
-		
-		
+
+
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-		
+
 	var direction := Input.get_axis("move_left", "move_right")
 	if !is_dashing and !is_attacking:
 			if direction:

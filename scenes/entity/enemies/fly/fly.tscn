@@ -9,7 +9,6 @@ size = Vector2(34, 22)
 size = Vector2(36, 28)
 
 [node name="Fly" type="CharacterBody2D" unique_id=1430804268 groups=["enemies"]]
-collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_fly")
 

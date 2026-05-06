@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cpmvsjtip6c4b"]
 
 [ext_resource type="PackedScene" uid="uid://bf86nlsget7pr" path="res://scenes/entity/player/player.tscn" id="1_sxf4j"]
+[ext_resource type="PackedScene" uid="uid://da1t21yj6qg8y" path="res://scenes/entity/enemies/the_executioner/the_executioner.tscn" id="2_sqgf4"]
 [ext_resource type="Texture2D" uid="uid://bbgw8wfk17ots" path="res://assets/maps/Terrain/Terrain (16x16).png" id="2_tqkkf"]
 [ext_resource type="PackedScene" uid="uid://b8flyenemy001" path="res://scenes/entity/enemies/fly/fly.tscn" id="3_04w0f"]
 [ext_resource type="PackedScene" uid="uid://d0qwvjl0fhm84" path="res://scenes/entity/enemies/zombie/zombie.tscn" id="3_a2pkv"]
@@ -101,10 +102,13 @@ collision_mask = 4
 [node name="Fly" parent="Enemies" unique_id=1502107561 instance=ExtResource("3_04w0f")]
 position = Vector2(777, 113)
 
+[node name="TheExecutioner" parent="." unique_id=1801848090 instance=ExtResource("2_sqgf4")]
+position = Vector2(5609, 209)
+
 [node name="Player" type="Node" parent="." unique_id=870327365]
 
 [node name="Player" parent="Player" unique_id=399099386 instance=ExtResource("1_sxf4j")]
-position = Vector2(113, 458)
+position = Vector2(5617, 423)
 
 [node name="CameraManager" type="Node" parent="." unique_id=267815865 node_paths=PackedStringArray("player", "Camera_AdvZone", "Camera_TheExecutinerZone")]
 script = ExtResource("4_jcaow")
@@ -118,7 +122,7 @@ Camera_TheExecutinerZone = NodePath("StaticBody2D/TheExecutonerZone/PhantomCamer
 
 [node name="PhantomCamera2D" type="Node2D" parent="CameraManager/StaticBody2D/AdventureZone" unique_id=2007619340 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(113, 458)
+position = Vector2(5617, 423)
 script = ExtResource("5_jcaow")
 priority = 1
 follow_mode = 1

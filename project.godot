@@ -23,7 +23,6 @@ PhantomCameraManager="*uid://duq6jhf6unyis"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
 
 [editor_plugins]
 
@@ -70,7 +69,7 @@ dash={
 2d_render/layer_1="player"
 2d_render/layer_2="enemies"
 2d_render/layer_3="floor"
-2d_physics/layer_1="player"
+2d_physics/layer_1="entities"
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="floor"
 2d_physics/layer_5="enemy_damage"
