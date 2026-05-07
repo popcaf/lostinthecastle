@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d0qwvjl0fhm84" path="res://scenes/entity/enemies/zombie/zombie.tscn" id="3_a2pkv"]
 [ext_resource type="Script" uid="uid://hk1pfwx4fm73" path="res://scripts/camera_manager.gd" id="4_jcaow"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_jcaow"]
+[ext_resource type="PackedScene" uid="uid://b8exec0one001" path="res://scenes/entity/enemies/the_executioner/the_executioner_zone.tscn" id="5_vvrx0"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_04w0f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a2pkv"]
@@ -75,6 +76,9 @@ size = Vector2(14.5, 490.5)
 [sub_resource type="Resource" id="Resource_jcaow"]
 script = ExtResource("6_04w0f")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvrx0"]
+size = Vector2(23.5, 499)
+
 [node name="Map" type="Node2D" unique_id=1923253297]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1563054447]
@@ -102,8 +106,13 @@ collision_mask = 4
 [node name="Fly" parent="Enemies" unique_id=1502107561 instance=ExtResource("3_04w0f")]
 position = Vector2(777, 113)
 
-[node name="TheExecutioner" parent="." unique_id=1801848090 instance=ExtResource("2_sqgf4")]
-position = Vector2(5609, 209)
+[node name="Boss" type="Node" parent="." unique_id=277470795]
+
+[node name="ExecutionerZone" parent="Boss" unique_id=1683676691 instance=ExtResource("5_vvrx0")]
+position = Vector2(5933, -41)
+
+[node name="TheExecutioner" parent="Boss" unique_id=1801848090 instance=ExtResource("2_sqgf4")]
+position = Vector2(6670, 357)
 
 [node name="Player" type="Node" parent="." unique_id=870327365]
 
@@ -146,6 +155,14 @@ script = ExtResource("5_jcaow")
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_jcaow")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=1987383836]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=1884869807]
+position = Vector2(6902.25, 225.5)
+shape = SubResource("RectangleShape2D_vvrx0")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=424102305]
 position = Vector2(5923, 520)

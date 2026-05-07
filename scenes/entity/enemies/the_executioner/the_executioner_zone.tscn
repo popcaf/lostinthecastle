@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b8exec0one001"]
+
+[ext_resource type="Script" uid="uid://c2ricvx181dtp" path="res://scenes/entity/enemies/the_executioner/the_executioner_zone.gd" id="1_zone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(992, 501)
+
+[node name="ExecutionerZone" type="Area2D" unique_id=1175888717 groups=["boss_area"]]
+collision_layer = 0
+script = ExtResource("1_zone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=273120687]
+position = Vector2(472, 268.5)
+shape = SubResource("RectangleShape2D_zone")
+debug_color = Color(0.2, 0.6, 1, 0.35)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

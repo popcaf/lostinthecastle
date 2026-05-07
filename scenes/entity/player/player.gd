@@ -33,8 +33,10 @@ var is_dashing = false
 var is_attacking = false
 var is_hurt: bool = false
 var is_input_locked: bool = false
+var is_stunned: bool = false
+var stun_tween: Tween = null
 
-const KNOCKBACK_FORCE_X: float = 350.0
+const DEFAULT_KNOCKBACK_FORCE: float = 350.0
 const HURT_FLASH_DURATION: float = 0.4
 
 enum State {
@@ -71,6 +73,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		state = State.IDLE
 		update_animation()
+		move_and_slide()
+		return
+
+	if is_hurt:
 		move_and_slide()
 		return
 
@@ -236,22 +242,24 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	pass
 
 
-func take_damage(damage_taken: int, source_position: Vector2 = global_position) -> void:
-	print('player taken damage', damage_taken)
+func take_damage(damage_taken: int, source_position: Vector2 = global_position, knockback_force: float = DEFAULT_KNOCKBACK_FORCE) -> void:
+	print('player taken damage', damage_taken, ' knockback=', knockback_force)
 	hitpoints -= damage_taken
 	hitpoints_changed.emit(hitpoints, max_hitpoints)
 	if hitpoints <= 0:
 		die()
 		return
-	apply_knockback(source_position)
+	if is_stunned:
+		end_stun()
+	apply_knockback(source_position, knockback_force)
 	flash_hurt()
 
 
-func apply_knockback(source_position: Vector2) -> void:
+func apply_knockback(source_position: Vector2, force: float = DEFAULT_KNOCKBACK_FORCE) -> void:
 	var dir: float = sign(global_position.x - source_position.x)
 	if dir == 0:
 		dir = -1.0 if sprite_2d.flip_h else 1.0
-	velocity.x = dir * KNOCKBACK_FORCE_X
+	velocity.x = dir * force
 	velocity.y = 0.0
 
 
@@ -265,6 +273,34 @@ func flash_hurt() -> void:
 	await get_tree().create_timer(HURT_FLASH_DURATION).timeout
 	sprite_2d.modulate = Color(1, 1, 1, 1)
 	is_hurt = false
+
+
+func stun(duration: float) -> void:
+	if hitpoints <= 0:
+		return
+	is_stunned = true
+	is_input_locked = true
+	velocity.x = 0
+	state = State.IDLE
+	update_animation()
+	if stun_tween != null and stun_tween.is_valid():
+		stun_tween.kill()
+	stun_tween = create_tween()
+	stun_tween.set_loops(max(int(duration / 0.2), 1))
+	stun_tween.tween_property(sprite_2d, "modulate", Color(1, 1, 0.3, 1), 0.1)
+	stun_tween.tween_property(sprite_2d, "modulate", Color(1, 1, 1, 1), 0.1)
+	await get_tree().create_timer(duration).timeout
+	if is_stunned:
+		end_stun()
+
+
+func end_stun() -> void:
+	is_stunned = false
+	is_input_locked = false
+	if stun_tween != null and stun_tween.is_valid():
+		stun_tween.kill()
+	stun_tween = null
+	sprite_2d.modulate = Color(1, 1, 1, 1)
 
 
 func die() -> void:
