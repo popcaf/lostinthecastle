@@ -422,6 +422,8 @@ size = Vector2(17, 40.5)
 size = Vector2(23, 69)
 
 [node name="Zombie" type="CharacterBody2D" unique_id=74309856 groups=["enemies"]]
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_hrfsx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=925487586]

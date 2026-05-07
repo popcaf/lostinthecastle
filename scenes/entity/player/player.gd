@@ -35,6 +35,8 @@ var is_hurt: bool = false
 var is_input_locked: bool = false
 var is_stunned: bool = false
 var stun_tween: Tween = null
+var is_on_enemy_head: bool = false
+var enemy_push_dir: float = 1.0
 
 const DEFAULT_KNOCKBACK_FORCE: float = 350.0
 const HURT_FLASH_DURATION: float = 0.4
@@ -78,6 +80,13 @@ func _physics_process(delta: float) -> void:
 
 	if is_hurt:
 		move_and_slide()
+		_update_on_enemy_head()
+		return
+
+	if is_on_enemy_head:
+		velocity.x = enemy_push_dir * speed
+		move_and_slide()
+		_update_on_enemy_head()
 		return
 
 	if is_on_floor():
@@ -137,10 +146,27 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash") and can_dash:
 		print('test dash')
 		dash()
-		
+
 	move_and_slide()
-	
-	
+	_update_on_enemy_head()
+
+
+func _update_on_enemy_head() -> void:
+	is_on_enemy_head = false
+	for i in get_slide_collision_count():
+		var col := get_slide_collision(i)
+		var collider := col.get_collider()
+		if collider == null:
+			continue
+		if not (collider is Node) or not collider.is_in_group("enemies"):
+			continue
+		if col.get_normal().y < -0.5:
+			is_on_enemy_head = true
+			var dx: float = global_position.x - collider.global_position.x
+			enemy_push_dir = sign(dx) if absf(dx) > 0.5 else 1.0
+			return
+
+
 func attack() -> void:
 	velocity = Vector2.ZERO
 	is_attacking = true
