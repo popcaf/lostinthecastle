@@ -5,7 +5,7 @@ signal opening_started
 signal opening_finished
 signal defeated
 
-enum State { ASLEEP, OPENING, IDLE, CLOSING_IN, ATTACK, PRE_RUSH, RUSH_ATTACK, JUMP_ATTACK, SHOUTING, DEAD }
+enum State {ASLEEP, OPENING, IDLE, CLOSING_IN, ATTACK, PRE_RUSH, RUSH_ATTACK, JUMP_ATTACK, SHOUTING, DEAD}
 
 @export var hitpoints: int = 600
 @export var attack_damage: int = 30
@@ -42,7 +42,6 @@ var attack_knockback: float = 350.0
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
-@onready var hit_box: Area2D = $HitBox
 @onready var attack_cd: Timer = $AttackCooldown
 @onready var player: Node2D = get_tree().get_first_node_in_group("player")
 @onready var attack_1: Area2D = $Attack1
@@ -163,8 +162,7 @@ func _try_attack() -> void:
 	print("[boss] try_attack dist=", dist, " melee=", melee_range)
 	var pool: Array[String]
 	if dist <= melee_range:
-		# pool = ["attack_1", "attack_2", "rush", "shout"]
-		pool = ["attack_2", "shout"]
+		pool = ["attack_1", "attack_2", "rush", "shout"]
 	else:
 		pool = ["rush", "jump_attack"]
 	var choices: Array[String] = pool.filter(func(option: String) -> bool: return option != last_attack)
@@ -279,9 +277,9 @@ func _perform_shout() -> void:
 	update_animation()
 	await get_tree().create_timer(shout_landing_delay).timeout
 	# if state == State.SHOUTING and player != null:
-		# var dist: float = global_position.distance_to(player.global_position)
-		# if dist <= shout_range and player.has_method("stun"):
-		# 	player.stun(shout_stun_duration)
+	# 	# var dist: float = global_position.distance_to(player.global_position)
+	# 	# if dist <= shout_range and player.has_method("stun"):
+	# 	player.stun(shout_stun_duration)
 	await get_tree().create_timer(max(shout_anim_duration - shout_landing_delay, 0.0)).timeout
 	if state == State.SHOUTING:
 		state = State.IDLE
@@ -322,5 +320,17 @@ func defeat() -> void:
 func _on_attack_1_area_entered(area: Area2D) -> void:
 	if area.owner == null or not area.owner.has_method("take_damage"):
 		return
-	print('tets attack 1')
 	area.owner.take_damage(attack_damage, global_position, attack_knockback)
+func _on_jump_attack_area_entered(area: Area2D) -> void:
+	if area.owner == null or not area.owner.has_method("take_damage"):
+		return
+	area.owner.take_damage(attack_damage, global_position, attack_knockback)
+func _on_rush_attack_area_entered(area: Area2D) -> void:
+	if area.owner == null or not area.owner.has_method("take_damage"):
+		return
+	area.owner.take_damage(attack_damage, global_position, attack_knockback)
+func _on_shout_area_entered(area: Area2D) -> void:
+	if area.owner == null or not area.owner.has_method("stun"):
+		return
+	print('shout hit area=', area)
+	area.owner.stun(shout_stun_duration)

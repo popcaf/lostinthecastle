@@ -243,6 +243,8 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 
 
 func take_damage(damage_taken: int, source_position: Vector2 = global_position, knockback_force: float = DEFAULT_KNOCKBACK_FORCE) -> void:
+	if is_hurt:
+		return
 	print('player taken damage', damage_taken, ' knockback=', knockback_force)
 	hitpoints -= damage_taken
 	hitpoints_changed.emit(hitpoints, max_hitpoints)

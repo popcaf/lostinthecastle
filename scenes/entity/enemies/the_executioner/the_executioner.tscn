@@ -12,6 +12,15 @@ size = Vector2(74, 145)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hit_exec"]
 size = Vector2(94.625, 43.361748)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b7rs6"]
+size = Vector2(139, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chtjf"]
+size = Vector2(117, 145)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klqsl"]
+size = Vector2(292, 204)
+
 [sub_resource type="Animation" id="Animation_b7rs6"]
 length = 0.001
 tracks/0/type = "value"
@@ -73,6 +82,78 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.31415927]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("JumpAttack:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("JumpAttack:monitoring")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("RushAttack:monitoring")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("RushAttack:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Shout:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, -174)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Shout:monitoring")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_gcgxd"]
@@ -284,6 +365,54 @@ tracks/0/keys = {
 "update": 1,
 "values": [42, 43, 44, 45, 46, 47]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3101515),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Attack1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10297519, 0.175303, 0.20840217, 0.3027961),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(26, -81), Vector2(26, -67), Vector2(15.999998, -54), Vector2(-19, -58), Vector2(-19, -66)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Attack1:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.30892557, 0.888774),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Attack1:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.10297519, 0.175303, 0.20840217, 0.3027961),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [3.1415927, 3.1415927, 3.455752, 3.455752, 6.2831855]
+}
 
 [sub_resource type="Animation" id="Animation_chtjf"]
 resource_name = "idle"
@@ -301,6 +430,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [9, 10, 11, 12, 13, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RushAttack:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shout:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_ugjwf"]
@@ -336,6 +489,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [51, 52, 53, 54, 55]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("JumpAttack:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("JumpAttack:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.39228645),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_rd5j2"]
 resource_name = "jump_attack_when_floor_flip"
@@ -351,6 +528,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [51, 52, 53, 54, 55]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("JumpAttack:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("JumpAttack:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.39228645),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_ogkvc"]
@@ -420,6 +621,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RushAttack:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RushAttack:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_1mgyh"]
 resource_name = "rush_attack_flip"
@@ -435,6 +660,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RushAttack:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RushAttack:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-47, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_k0wav"]
@@ -452,10 +701,33 @@ tracks/0/keys = {
 "update": 1,
 "values": [3, 56, 57]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shout:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7036638),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, -174)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shout:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.76373273, 0.89245164),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_gjydr"]
 resource_name = "shout_flip"
-length = 0.7
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -464,10 +736,34 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4072386, 0.5041527),
+"times": PackedFloat32Array(0, 0.70145345, 0.80081934),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [3, 56, 57]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shout:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7036638),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-312, -174)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shout:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.76373273, 0.89245164),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_klqsl"]
@@ -675,6 +971,7 @@ script = ExtResource("1_exec")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1401149163]
 position = Vector2(1, -76)
 texture = ExtResource("1_x07op")
+flip_h = true
 hframes = 8
 vframes = 8
 frame = 9
@@ -706,9 +1003,41 @@ position = Vector2(-50.53784, -0.89718246)
 shape = SubResource("RectangleShape2D_hit_exec")
 debug_color = Color(0.88, 0.32, 0.34, 0.42)
 
-[node name="HitBox" type="Area2D" parent="." unique_id=1428656266]
+[node name="JumpAttack" type="Area2D" parent="." unique_id=471559261]
+visible = false
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 32
 monitoring = false
 monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpAttack" unique_id=1411773063]
+position = Vector2(-28.5, -27)
+shape = SubResource("RectangleShape2D_b7rs6")
+debug_color = Color(0.13895258, 0.64636993, 0, 0.41960785)
+
+[node name="RushAttack" type="Area2D" parent="." unique_id=1533052093]
+visible = false
+collision_layer = 0
+collision_mask = 32
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RushAttack" unique_id=1850591210]
+position = Vector2(24.5, -72.5)
+shape = SubResource("RectangleShape2D_chtjf")
+
+[node name="Shout" type="Area2D" parent="." unique_id=1524957931]
+visible = false
+position = Vector2(9, -174)
+collision_layer = 0
+collision_mask = 32
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shout" unique_id=527815771]
+position = Vector2(153, 75)
+shape = SubResource("RectangleShape2D_klqsl")
 
 [node name="AttackCooldown" type="Timer" parent="." unique_id=1813143860]
 one_shot = true
@@ -727,3 +1056,6 @@ parameters/jump_attack/blend_position = Vector2(0, 0)
 parameters/rush_attack/blend_position = Vector2(0, 0)
 
 [connection signal="area_entered" from="Attack1" to="." method="_on_attack_1_area_entered"]
+[connection signal="area_entered" from="JumpAttack" to="." method="_on_jump_attack_area_entered"]
+[connection signal="area_entered" from="RushAttack" to="." method="_on_rush_attack_area_entered"]
+[connection signal="area_entered" from="Shout" to="." method="_on_shout_area_entered"]
