@@ -15,7 +15,7 @@ enum State {ASLEEP, OPENING, IDLE, CLOSING_IN, ATTACK, PRE_RUSH, RUSH_ATTACK, JU
 @export var shout_range: float = 260.0
 
 @export_category("Timing")
-@export var attack_cooldown: float = 0.75
+@export var attack_cooldown: float = 1.5
 @export var opening_duration: float = 1.3
 @export var attack_anim_duration: float = 0.9
 @export var pre_rush_duration: float = 1.7
@@ -33,11 +33,18 @@ enum State {ASLEEP, OPENING, IDLE, CLOSING_IN, ATTACK, PRE_RUSH, RUSH_ATTACK, JU
 @export var close_in_max_duration: float = 0.6
 @export var melee_swing_range: float = 90.0
 
+@export_category("Defeat")
+@export var game_over_scene: PackedScene = preload("res://scenes/ui/game_over.tscn")
+
+@export_category("Hit Reaction")
+@export var invincibility_duration: float = 0.4
+
 var state: State = State.ASLEEP
 var facing: float = -1.0
 var attack_variant: int = 1
 var last_attack: String = ""
 var attack_knockback: float = 350.0
+var is_invincible: bool = false
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -276,10 +283,6 @@ func _perform_shout() -> void:
 	_apply_facing()
 	update_animation()
 	await get_tree().create_timer(shout_landing_delay).timeout
-	# if state == State.SHOUTING and player != null:
-	# 	# var dist: float = global_position.distance_to(player.global_position)
-	# 	# if dist <= shout_range and player.has_method("stun"):
-	# 	player.stun(shout_stun_duration)
 	await get_tree().create_timer(max(shout_anim_duration - shout_landing_delay, 0.0)).timeout
 	if state == State.SHOUTING:
 		state = State.IDLE
@@ -288,12 +291,23 @@ func _perform_shout() -> void:
 
 
 func take_damage(damage_taken: int, _source_position: Vector2 = global_position) -> void:
+	if is_invincible:
+		return
 	if state == State.ASLEEP or state == State.OPENING or state == State.DEAD:
 		return
 	hitpoints -= damage_taken
 	_wink()
+	print('boss taken damage', damage_taken, ' hp=', hitpoints)
 	if hitpoints <= 0:
 		defeat()
+		return
+	_start_invincibility()
+
+
+func _start_invincibility() -> void:
+	is_invincible = true
+	await get_tree().create_timer(invincibility_duration).timeout
+	is_invincible = false
 
 
 func _wink() -> void:
@@ -308,13 +322,20 @@ func defeat() -> void:
 	if attack_1 != null:
 		attack_1.monitoring = false
 	defeated.emit()
+	_show_game_over()
 	queue_free()
 
 
-# func _on_attack_1_area_entered(area: Area2D) -> void:
-# 	if area.owner == null or not area.owner.has_method("take_damage"):
-# 		return
-# 	area.owner.take_damage(attack_damage, global_position)
+func _show_game_over() -> void:
+	if game_over_scene == null:
+		return
+	for child in get_tree().root.get_children():
+		if child.name == "HUD":
+			child.queue_free()
+	var screen: CanvasLayer = game_over_scene.instantiate()
+	get_tree().root.add_child(screen)
+	if screen.has_method("show_game_over"):
+		screen.show_game_over()
 
 
 func _on_attack_1_area_entered(area: Area2D) -> void:
